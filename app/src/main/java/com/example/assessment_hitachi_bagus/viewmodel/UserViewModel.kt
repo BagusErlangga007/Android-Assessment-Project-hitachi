@@ -22,7 +22,7 @@ class UserViewModel(
 
     val users: StateFlow<List<GitHubUserEntity>> =
         _query
-            .debounce(500) // biar ga nembak API tiap ketik
+            .debounce(500)
             .filter { it.isNotBlank() }
             .flatMapLatest { q ->
                 repository.searchUsers(q)

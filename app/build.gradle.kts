@@ -63,5 +63,11 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
     implementation("com.squareup.moshi:moshi:1.14.0")
     implementation("com.github.bumptech.glide:glide:4.16.0")
-    ksp("com.github.bumptech.glide:ksp:4.16.0")
+    ksp("com.squareup.moshi:moshi-kotlin-codegen:1.15.1") // 🔑 gunakan ksp, bukan kapt
+
+    // Room
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)         // ⬅️ gunakan ksp, jangan kapt
+
 }

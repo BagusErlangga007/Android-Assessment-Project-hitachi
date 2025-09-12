@@ -19,12 +19,12 @@ import com.example.assessment_hitachi_bagus.viewmodel.UserRepository
 import com.example.assessment_hitachi_bagus.viewmodel.UserViewModel
 
 class MainActivity : ComponentActivity() {
-    private val db by lazy{
+    private val db by lazy {
         Room.databaseBuilder(
             applicationContext,
             AppDatabase::class.java,
             "github_users.db"
-        ).allowMainThreadQueries().build()
+        ).build()
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

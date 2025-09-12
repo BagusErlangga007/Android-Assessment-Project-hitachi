@@ -14,12 +14,12 @@ class UserRepository(
     }
 
     suspend fun fetchAndSaveUsers(query: String) {
-        val response = api.searchUsers("$query in:login type:user")
+        val response = api.searchUsers("$query")
         val entities = response.items.map {
             GitHubUserEntity(
                 login = it.login,
-                avatarUrl = it.avatar_url,
-                htmlUrl = it.html_url
+                avatarUrl = it.avatarUrl,
+                htmlUrl = it.htmlUrl
             )
         }
         dao.clearUsers()
