@@ -25,4 +25,7 @@ interface GitHubUserDao {
 
     @Query("DELETE FROM github_users")
     suspend fun clearUsers()
+
+    @Query("SELECT * FROM github_users WHERE login = :login LIMIT 1")
+    suspend fun getUserByLogin(login: String): GitHubUserEntity?
 }

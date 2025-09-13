@@ -1,6 +1,7 @@
 package com.example.assessment_hitachi_bagus.model
 
 import android.content.Context
+import androidx.room.Dao
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -25,4 +26,5 @@ abstract class AppDatabase : RoomDatabase() {
                 ).build().also { INSTANCE = it }
             }
     }
+
 }

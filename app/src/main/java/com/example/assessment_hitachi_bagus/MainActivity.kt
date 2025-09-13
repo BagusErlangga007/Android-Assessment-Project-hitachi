@@ -3,14 +3,15 @@ package com.example.assessment_hitachi_bagus
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import androidx.room.Room
 import com.example.assessment_hitachi_bagus.model.AppDatabase
 import com.example.assessment_hitachi_bagus.ui.theme.Assessment_hitachi_bagusTheme
@@ -34,7 +35,34 @@ class MainActivity : ComponentActivity() {
         val viewModel = UserViewModel(repository)
 
         setContent {
-            SearchScreen(viewModel)
+            val navController = rememberNavController()
+
+            NavHost(
+                navController = navController,
+                startDestination = "search"
+            ) {
+                composable("search") {
+                    SearchScreen(
+                        viewModel = viewModel,
+                        onUserClick = { login ->
+                            navController.navigate("detail/$login")
+                        }
+                    )
+                }
+                composable(
+                    "detail/{login}",
+                    arguments = listOf(navArgument("login") { type = NavType.StringType })
+                ) { backStackEntry ->
+                    val login = backStackEntry.arguments?.getString("login") ?: return@composable
+                    UserDetailScreen(
+                        login = login,
+                        db = db,
+                        onBack = { navController.popBackStack() }
+                    )
+                }
+
+            }
+//            SearchScreen(viewModel)
         }
     }
 }
